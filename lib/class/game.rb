@@ -28,6 +28,7 @@ class Game
   def play
     entry = nil
     puts "La partie commence !"
+    Show.display_board(@board.board)
     while(is_still_ongoing?)
       # puts "while"
       if is_still_ongoing?
@@ -82,8 +83,7 @@ class Game
     end #Fin loop
   end #Fin méthode
   def is_still_ongoing?
-    !one_player_won? && !game_is_draw? #Mettre board_full
-    # true
+    !one_player_won? && !game_is_draw?
   end
 
   def one_player_won?
@@ -92,7 +92,10 @@ class Game
   end
 
   def same_symbol_on_line?()
-    local_board = @board.board
+    check_same_symbol_on_line(@board.board)
+  end #Fin méthode
+  def check_same_symbol_on_line(array)
+    local_board = array
     full_of_same = true
     first_symbol = ""
     local_board.each do |row|
@@ -113,32 +116,9 @@ class Game
       full_of_same = true
     end #End local_board
     return false
-  end #Fin méthode
+  end
   def same_symbol_on_column?()
-    # binding.pry
-    local_board = @board.board
-    full_of_same = true
-    first_symbol = ""
-    # current_column = 0
-    (0..2).each do |current_column|
-      first_symbol = local_board.first[current_column].value
-      local_board.each do |row|
-        if (row[current_column].value != first_symbol) && row[current_column].is_full?
-          full_of_same = false
-        elsif row[current_column].is_empty?
-          full_of_same = false
-        end
-        if !full_of_same
-          break
-        end
-      end #End local_board
-      if full_of_same
-        get_player_with_symbol(first_symbol)
-        return true 
-      end
-      full_of_same = true
-    end # End boucle générale
-    return false
+    check_same_symbol_on_line(@board.rotate_board)
   end
   def same_symbol_on_diag?
     local_board = @board.board
@@ -146,8 +126,6 @@ class Game
     first_symbol = ""
     (0..2).each do |current|
       first_symbol = local_board.first.first.value
-      # (0..2).each do |current_row|
-      # print "|",(local_board[current][current].value != first_symbol) && local_board[current][current].is_full?," ", local_board[current][current].is_empty?,"|\n"
       if (local_board[current][current].value != first_symbol) && local_board[current][current].is_full?
         full_of_same = false
         break
@@ -155,7 +133,6 @@ class Game
         full_of_same = false
         break
       end
-      # end # end imbriqué
       full_of_same = true
     end #generale loop
     if full_of_same
@@ -175,19 +152,19 @@ class Game
       full_of_same = true
     end #generale loop
     if full_of_same
-     get_player_with_symbol(last_symbol)
-     return true
-   end
-   return false
- end
- def game_is_draw?
-  @number_of_plays >= 9
-end
-def get_player_with_symbol(symbol)
-  @winner = player1 if player1.symbol == symbol
-  @winner = player2 if player2.symbol == symbol
-end
-def claim_winner(winner)
-  puts "Hip hip hip hourra ! #{winner.name} gagne la partie !"
-end
+      get_player_with_symbol(last_symbol)
+      return true
+    end
+    return false
+  end
+  def game_is_draw?
+    @number_of_plays >= 9
+  end
+  def get_player_with_symbol(symbol)
+    @winner = player1 if player1.symbol == symbol
+    @winner = player2 if player2.symbol == symbol
+  end
+  def claim_winner(winner)
+    puts "Hip hip hip hourra ! #{winner.name} gagne la partie !"
+  end
 end

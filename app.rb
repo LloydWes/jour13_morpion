@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(__dir__)
 $LOAD_PATH.unshift( File.expand_path('lib/app', __dir__) )
 $LOAD_PATH.unshift( File.expand_path('lib/class', __dir__) )
 $LOAD_PATH.unshift( File.expand_path('lib/view', __dir__) )
-require 'player'
+
 require 'game'
 require 'show'
 
