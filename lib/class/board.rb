@@ -7,7 +7,7 @@ $LOAD_PATH.unshift( File.expand_path('view', __dir__) )
 require 'board_case'
 require 'pry'
 class Board
-  attr_accessor :board, :board_column
+  attr_accessor :board
 
   def initialize
     @board = Array.new
@@ -26,7 +26,7 @@ class Board
   def board #Retourne le plateau de jeu pour l'affichage
     @board
   end
-
+  #Remplir une case (si elle est vide)
   def fill_case(cell, symbol)
     row = cell[0].ord%96 - 1
     column = cell[1].to_i - 1
@@ -37,36 +37,19 @@ class Board
       return false
     end
   end
-
+  #Retourne une version du tableau qui est tournée de 90° vers la droite, les colonnes deviennent des lignes
   def rotate_board
-    # puts "rotate !"
     new_board = Array.new
     3.times do
       new_board << Array.new(3)
     end
     intermediaire = nil
-    # puts "avant prmière boucle"
     (0...@board.length).each do |i|
       (0...@board.length).each do |j|
         new_board[i][j] = @board[@board.length - j - 1][i]
       end
     end
-# p new_board
-    # puts "rotate done!"
     return new_board
   end
 end
 
-  # for (int i = 0; i < n; ++i) {
-  #       for (int j = 0; j < n; ++j) {
-  #           ret[i, j] = matrix[n - j - 1, i];
-  #       }
-  #   }
-
-
-
-
-
-# bd = Board.new
-# puts bd.class
-# puts bd.board.length

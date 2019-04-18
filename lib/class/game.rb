@@ -87,7 +87,6 @@ class Game
   end
 
   def one_player_won?
-    # false
     return same_symbol_on_line? || same_symbol_on_column? || same_symbol_on_diag?
   end
 
