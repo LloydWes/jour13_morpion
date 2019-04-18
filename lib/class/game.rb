@@ -52,7 +52,7 @@ class Game
   def get_entry(player)
     entry = nil
     loop do
-      puts "#{player.name} à toi de jouer (ton symbole est le #{player.symbol})"
+      puts "#{player.name} à toi de jouer (ton symbole est le #{player.symbol}) (ex : a1 ou A1 ou B1)"
       print ">"
       entry = gets.chomp
       break if valid_entry?(entry)
