@@ -20,3 +20,5 @@ A3|B3|C3
 Tu peux entrez les coordonnées en majuscule ou minuscule
 
 Pour cloner mon repo `git clone https://github.com/LloydWes/jour13_morpion`
+
+`ruby app.rb` pour lancer le jeu
